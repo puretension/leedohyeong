@@ -76,15 +76,15 @@ export default function Info() {
             <div className='text-gray-700 mt-5 mb-4 leading-relaxed text-lg'>
               <p className='mb-2'>
                 After military period, I switched from <HighlightText>economics</HighlightText> to{" "}
-                <HighlightText>computer science</HighlightText>, maintaining a high GPA (4.21/4.5) with a{" "}
-                <b>growth mindset</b>.
+                <HighlightText>computer science</HighlightText>, maintaining{" "}
+                <HighlightText>a high GPA (4.21/4.5)</HighlightText> with a <b>growth mindset</b>.
               </p>
 
               <p className='mb-2'>
-                I prioritize creating <b>real business impact</b> across various fields through development. As a{" "}
-                <HighlightText>full-stack developer at a Pre-Series A startup</HighlightText> and{" "}
-                <HighlightText>leader of the Google-sponsored GDGoC community</HighlightText>, I strive to build both
-                technical and communication skills.
+                I prioritize creating <b>real business impact</b> across various fields through development. <br />
+                As a <HighlightText>full-stack developer at a Pre-Series A startup</HighlightText> and{" "}
+                <HighlightText>leader of the Google-sponsored GDGoC community</HighlightText>, <br />I strive to build
+                both technical and communication skills.
               </p>
 
               <p>
@@ -94,7 +94,7 @@ export default function Info() {
             </div>
 
             {/* 한글 문단 모음 */}
-            <div className='text-gray-600 mb-8 leading-relaxed text-base'>
+            {/* <div className='text-gray-600 mb-8 leading-relaxed text-base'>
               <p className='mb-2'>
                 저는 군 전역후 <HighlightText>경제학과</HighlightText>에서{" "}
                 <HighlightText>컴퓨터 공학전공</HighlightText>으로 전과하여, <b>꾸준히 성장하는 마음</b>으로 Top
@@ -112,7 +112,7 @@ export default function Info() {
                 다양한 도메인에서 애플리케이션을 구축하면서 <b>Infrastructure</b>에 깊은 관심을 갖게 되었고, 현재는{" "}
                 <span className='font-semibold italic'>확장 가능하고 안정적인 Infrastructure</span>에 집중하고 있습니다.
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
 
