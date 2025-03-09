@@ -1,0 +1,432 @@
+import { BlogLayout } from "@/components/BlogLayout";
+import { HighlightText } from "@/components/Highlight.component";
+
+import Thumbnail from "@/app/blog/1-react-native-optimize-local-state-management/images/thumbnail.png";
+
+export const meta = {
+  date: "2024-08-27",
+  title: "Context API + useReducer로 안심하고 로컬 상태 관리하기",
+  description: "Flux 패턴을 활용한 효율적인 화면 단위 상태 관리 방법",
+  image: Thumbnail.src,
+  tags: ["ReactNative", "useContext", "useReducer", "Flux", "Hook", "State Management"],
+  category: "React & ReactNative",
+};
+
+export default (props) => <BlogLayout meta={meta} {...props} />;
+
+## 들어가며
+
+리액트 네이티브 애플리케이션을 개발하다 보면 상태 관리는 항상 중요한 과제다. 특히 화면 단위로 상태를 관리해야 할 때, 전역 상태 관리 라이브러리를 사용하는 것이 과할 수 있다. 이럴 때 React의 내장 기능인 <HighlightText>useReducer</HighlightText>와 <HighlightText>Context API</HighlightText>를 활용한 Flux 패턴을 적용하면 깔끔하고 예측 가능한 상태 관리가 가능하다.
+
+이 글에서는 화면 단위의 상태 관리를 위한 패턴을 소개하고, 실제 프로젝트에서 어떻게 활용할 수 있는지 알아보자.
+
+## Flux 패턴이란?
+
+Flux는 Facebook에서 개발한 애플리케이션 아키텍처 패턴으로, 단방향 데이터 흐름을 강조한다. 이 패턴의 핵심 요소는 다음과 같다:
+
+1. **Action**: 상태 변경을 위한 이벤트
+2. **Dispatcher**: Action을 받아 Store로 전달
+3. **Store**: 애플리케이션의 상태와 로직을 포함
+4. **View**: Store의 상태를 기반으로 UI 렌더링
+
+React의 <HighlightText>useReducer</HighlightText>와 Context API를 사용하면 이 패턴을 간단하게 구현할 수 있다.
+
+## 기본 구조 만들기
+
+먼저 화면 단위 상태 관리를 위한 기본 구조를 살펴보자:
+
+```tsx showLineNumbers
+import React, { createContext, useContext, useReducer } from "react";
+
+/**
+ * _ScreenName_ 에서 사용하는 상태값입니다.
+ * Reducer 를 통해 정의합니다.
+ */
+export type _ScreenName_ScreenState = {};
+
+/**
+ * _ScreenName_ 에서 사용하는 전체 Context 입니다.
+ * 상태값에서 유도된 값과 상태값을 조작하는 함수들을 추가로 넘겨줍니다.
+ */
+type _ScreenName_ContextType = _ScreenName_ScreenState & {};
+
+/** */
+const initial_ScreenName_ScreenState: _ScreenName_ScreenState = {};
+
+/** */
+const _ScreenName_ScreenContext = createContext<_ScreenName_ContextType | undefined>(undefined);
+
+/** */
+export function use_ScreenName_Context() {
+  const context = useContext(_ScreenName_ScreenContext);
+  if (context === undefined) {
+    throw new Error("_ScreenName_ 콘텍스트가 제공되지 않았습니다.");
+  }
+  return context;
+}
+
+/** */
+function _ScreenName_ScreenStateReducer(
+  state: _ScreenName_ScreenState,
+  updatedState: Partial<_ScreenName_ScreenState>,
+) {
+  return { ...state, ...updatedState };
+}
+
+/** */
+export function _ScreenName_ScreenProvider({ children }: { children: React.ReactNode }) {
+  const [state, dispatch] = useReducer(_ScreenName_ScreenStateReducer, initial_ScreenName_ScreenState);
+
+  /** */
+  function updateState() {
+    dispatch({ type: "", payload: {} });
+  }
+
+  const value: _ScreenName_ContextType = {
+    ...state,
+  };
+
+  return <_ScreenName_ScreenContext.Provider value={value}>{children}</_ScreenName_ScreenContext.Provider>;
+}
+```
+
+이 보일러플레이트 코드는 화면별 상태 관리를 위한 기본 틀이다. 실제 프로젝트에서는 <HighlightText>_ScreenName_</HighlightText>을 실제 화면 이름으로 대체하여 사용한다.
+
+## 실제 예시: 프로필 설정 화면 구현하기
+
+이제 실제 프로필 설정 화면을 예로 들어 어떻게 이 패턴을 적용할 수 있는지 살펴보자.
+
+### 1. 상태 정의하기
+
+먼저 프로필 설정 화면에서 필요한 상태를 정의한다:
+
+```tsx {1-13} showLineNumbers
+/**
+ * ProfileSetup 화면에서 사용하는 상태값입니다.
+ * Reducer를 통해 정의합니다.
+ */
+export type ProfileSetupScreenState = {
+  nickname: string;
+  bio: string;
+  profileImage: string | null;
+  isSubmitting: boolean;
+  errorMessage: string | null;
+};
+
+/**
+ * 초기 상태 설정
+ */
+const initialProfileSetupScreenState: ProfileSetupScreenState = {
+  nickname: "",
+  bio: "",
+  profileImage: null,
+  isSubmitting: false,
+  errorMessage: null,
+};
+```
+
+### 2. Context 및 Hook 정의하기
+
+상태와 함께 사용할 함수들을 포함한 Context를 정의한다:
+
+```tsx showLineNumbers
+/**
+ * ProfileSetup 화면에서 사용하는 전체 Context입니다.
+ * 상태값에서 유도된 값과 상태값을 조작하는 함수들을 추가로 넘겨줍니다.
+ */
+type ProfileSetupContextType = ProfileSetupScreenState & {
+  isValid: boolean;
+  updateNickname: (nickname: string) => void;
+  updateBio: (bio: string) => void;
+  uploadProfileImage: () => Promise<void>;
+  submitProfile: () => Promise<void>;
+};
+
+/** Context 생성 */
+const ProfileSetupScreenContext = createContext<ProfileSetupContextType | undefined>(undefined);
+
+/** Context 사용을 위한 Hook */
+export function useProfileSetupContext() {
+  const context = useContext(ProfileSetupScreenContext);
+  if (context === undefined) {
+    throw new Error("ProfileSetup 콘텍스트가 제공되지 않았습니다.");
+  }
+  return context;
+}
+```
+
+### 3. Provider 컴포넌트 구현하기
+
+상태와 함수들을 제공할 Provider 컴포넌트를 구현한다:
+
+```tsx {15-20,23-25,28-30,33-40,43-54} showLineNumbers
+export function ProfileSetupScreenProvider({ children }: { children: React.ReactNode }) {
+  const [state, dispatch] = useReducer(ProfileSetupScreenStateReducer, initialProfileSetupScreenState);
+
+  /** 입력값이 유효한지 확인 (파생된 상태) */
+  const isValid = state.nickname.length >= 2 && state.nickname.length <= 20;
+
+  /** 닉네임 업데이트 */
+  function updateNickname(nickname: string) {
+    dispatch({ nickname });
+  }
+
+  /** 자기소개 업데이트 */
+  function updateBio(bio: string) {
+    dispatch({ bio });
+  }
+
+  /** 프로필 이미지 업로드 */
+  async function uploadProfileImage() {
+    try {
+      // 이미지 선택 및 업로드 로직
+      const imageUrl = "업로드된 이미지 URL";
+      dispatch({ profileImage: imageUrl });
+    } catch (error) {
+      dispatch({ errorMessage: "이미지 업로드에 실패했습니다." });
+    }
+  }
+
+  /** 프로필 제출 */
+  async function submitProfile() {
+    if (!isValid) return;
+
+    try {
+      dispatch({ isSubmitting: true, errorMessage: null });
+      // API 호출 로직
+      // 성공 시 다음 화면으로 이동
+    } catch (error) {
+      dispatch({
+        isSubmitting: false,
+        errorMessage: "프로필 저장에 실패했습니다.",
+      });
+    }
+  }
+
+  const value: ProfileSetupContextType = {
+    ...state,
+    isValid,
+    updateNickname,
+    updateBio,
+    uploadProfileImage,
+    submitProfile,
+  };
+
+  return <ProfileSetupScreenContext.Provider value={value}>{children}</ProfileSetupScreenContext.Provider>;
+}
+```
+
+## 화면 컴포넌트에서 Context 사용하기
+
+이제 실제 화면 컴포넌트에서 Context를 사용하는 방법을 살펴보자:
+
+```tsx showLineNumbers
+export function ProfileSetupScreen() {
+  return (
+    <ProfileSetupScreenProvider>
+      <ProfileSetupContainer />
+    </ProfileSetupScreenProvider>
+  );
+}
+
+function ProfileSetupContainer() {
+  const {
+    nickname,
+    bio,
+    profileImage,
+    isSubmitting,
+    errorMessage,
+    isValid,
+    updateNickname,
+    updateBio,
+    uploadProfileImage,
+    submitProfile,
+  } = useProfileSetupContext();
+
+  return (
+    <View style={styles.container}>
+      <ProfileImageSection profileImage={profileImage} onUpload={uploadProfileImage} />
+
+      <TextInput value={nickname} onChangeText={updateNickname} placeholder='닉네임 (2-20자)' maxLength={20} />
+
+      <TextInput value={bio} onChangeText={updateBio} placeholder='자기소개 (선택사항)' multiline />
+
+      {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
+
+      <Button title='저장하기' onPress={submitProfile} disabled={!isValid || isSubmitting} />
+    </View>
+  );
+}
+```
+
+## 이 패턴의 장점
+
+1. <HighlightText>예측 가능한 상태 변화</HighlightText>: Reducer를 통해 상태 변화가 일어나므로 예측 가능하고 디버깅이
+   쉽다.
+2. <HighlightText>화면 단위 캡슐화</HighlightText>: 화면별로 상태와 로직을 캡슐화하여 관리할 수 있다.
+3. <HighlightText>코드 재사용성</HighlightText>: Hook을 통해 상태와 로직을 쉽게 재사용할 수 있다.
+4. <HighlightText>테스트 용이성</HighlightText>: 상태 로직이 분리되어 있어 테스트하기 쉽다.
+5. <HighlightText>불필요한 리렌더링 방지</HighlightText>: Context를 적절히 분리하면 불필요한 리렌더링을 방지할 수 있다.
+
+## 고급 패턴: Action 타입 정의하기
+
+더 복잡한 상태 관리가 필요한 경우, Action 타입을 명시적으로 정의할 수 있다:
+
+```tsx {1-7,10-24} showLineNumbers
+// Action 타입 정의
+type ProfileSetupAction =
+  | { type: "UPDATE_NICKNAME"; payload: string }
+  | { type: "UPDATE_BIO"; payload: string }
+  | { type: "SET_PROFILE_IMAGE"; payload: string }
+  | { type: "SET_SUBMITTING"; payload: boolean }
+  | { type: "SET_ERROR"; payload: string | null }
+  | { type: "RESET_STATE" };
+
+// Reducer 함수 수정
+function ProfileSetupScreenStateReducer(
+  state: ProfileSetupScreenState,
+  action: ProfileSetupAction,
+): ProfileSetupScreenState {
+  switch (action.type) {
+    case "UPDATE_NICKNAME":
+      return { ...state, nickname: action.payload };
+    case "UPDATE_BIO":
+      return { ...state, bio: action.payload };
+    case "SET_PROFILE_IMAGE":
+      return { ...state, profileImage: action.payload };
+    case "SET_SUBMITTING":
+      return { ...state, isSubmitting: action.payload };
+    case "SET_ERROR":
+      return { ...state, errorMessage: action.payload };
+    case "RESET_STATE":
+      return initialProfileSetupScreenState;
+    default:
+      return state;
+  }
+}
+```
+
+## Zustand와 Context API의 차이점
+
+React의 Context API와 Zustand는 각각 다른 특성과 사용 사례를 가지고 있다:
+
+### 상태 지속성의 차이
+
+- <HighlightText>Context API</HighlightText>: 해당 Context가 속한 화면이 언마운트되면 상태가 초기화된다.
+- <HighlightText>Zustand</HighlightText>: 앱이 종료되기 전까지 상태가 유지된다.
+
+### 적절한 사용 사례
+
+#### Zustand 사용이 적합한 경우:
+
+1. <HighlightText>싱글톤 화면의 상태 관리</HighlightText>- 회원가입 화면 - 프로젝트 업로드 화면 - 앱에서 단 하나만
+   존재하는 화면들
+
+2. <HighlightText>전역적으로 접근 필요한 데이터</HighlightText>- 사용자 정보 - 전체 프로젝트 데이터 - 앱 전반에서
+   공유되어야 하는 상태
+
+#### Context API 사용이 적합한 경우:
+
+1. <HighlightText>다중 인스턴스 화면의 상태 관리</HighlightText>- 프로젝트 상세 페이지 - 투표 상세 페이지 - 동시에 여러
+   개가 존재할 수 있는 화면들
+
+이러한 특성을 고려하여 적절한 상태 관리 도구를 선택하면 더 효율적인 앱 개발이 가능하다.
+
+## 언마운트와 상태 관리의 관계
+
+React 컴포넌트 생명주기에서 <HighlightText>언마운트(Unmount)</HighlightText>는 컴포넌트가 DOM에서 제거되는 과정을 의미한다. 이는 다음과 같은 상황에서 발생한다:
+
+1. 화면 전환 시 (다른 페이지로 이동)
+2. 조건부 렌더링에서 조건이 변경될 때
+3. 리스트에서 항목이 제거될 때
+
+언마운트가 상태 관리에 미치는 영향은 사용하는 상태 관리 도구에 따라 크게 달라진다:
+
+### Context API와 언마운트
+
+Context API를 사용할 때, Provider 컴포넌트가 언마운트되면 해당 Context에 저장된 모든 상태가 메모리에서 완전히 제거된다. 이는 다음과 같은 결과를 가져온다:
+
+```tsx
+function ProfileScreen() {
+  return (
+    <ProfileContextProvider>
+      {" "}
+      {/* 이 Provider가 언마운트되면 */}
+      <ProfileContent /> {/* 내부 상태가 모두 초기화됨 */}
+    </ProfileContextProvider>
+  );
+}
+```
+
+예를 들어, 프로필 설정 화면에서 사용자가 닉네임을 입력하고 다른 화면으로 이동했다가 다시 돌아오면, 이전에 입력했던 닉네임은 모두 사라지고 초기 상태로 돌아간다. 이는 <HighlightText>화면 단위로 독립적인 상태 관리</HighlightText>가 필요할 때 유용하다.
+
+### Zustand와 언마운트
+
+반면 Zustand는 컴포넌트의 생명주기와 독립적으로 상태를 관리한다:
+
+```tsx
+// 앱 어디서나 접근 가능한 전역 상태
+const useProfileStore = create((set) => ({
+  nickname: "",
+  updateNickname: (name) => set({ nickname: name }),
+}));
+
+function ProfileScreen() {
+  // 이 컴포넌트가 언마운트되어도 상태는 유지됨
+  const { nickname, updateNickname } = useProfileStore();
+
+  return <TextInput value={nickname} onChangeText={updateNickname} />;
+}
+```
+
+사용자가 프로필 화면을 벗어났다가 다시 돌아와도, 이전에 입력한 닉네임이 그대로 유지된다. 이는 <HighlightText>화면 간 상태 공유</HighlightText>나 <HighlightText>지속적인 상태 유지</HighlightText>가 필요한 경우에 적합하다.
+
+### 실제 사례로 이해하기
+
+다음 시나리오를 통해 두 접근 방식의 차이를 이해해보자:
+
+#### 시나리오: 여러 프로젝트 상세 화면
+
+앱에서 여러 프로젝트의 상세 정보를 볼 수 있는 화면이 있다고 가정해보자:
+
+1. **Context API 사용 시**:
+
+   - 프로젝트 A의 상세 화면에서 댓글을 작성하다가 저장하지 않고 프로젝트 B로 이동
+   - 프로젝트 A로 다시 돌아오면 작성 중이던 댓글이 초기화됨
+   - 각 프로젝트 화면은 독립적인 상태를 가짐
+
+2. **Zustand 사용 시**:
+   - 모든 프로젝트 상세 화면이 동일한 상태를 공유
+   - 프로젝트 A에서 작성 중이던 댓글이 프로젝트 B에도 나타날 수 있음
+   - 이를 방지하려면 프로젝트 ID로 상태를 구분하는 추가 로직 필요
+
+이처럼 <HighlightText>동일한 화면의 여러 인스턴스가 존재할 수 있는 경우</HighlightText>, Context API의 언마운트 시 상태 초기화 특성이 오히려 장점이 된다. 각 인스턴스는 자체적인 상태를 가지며, 다른 인스턴스의 상태에 영향을 받지 않는다.
+
+### 언제 어떤 방식을 선택해야 할까?
+
+상태의 지속성 요구사항에 따라 선택하는 것이 좋다:
+
+1. **Context API 선택 시기**:
+
+   - 화면별로 독립적인 상태가 필요할 때
+   - 동일한 화면의 여러 인스턴스가 존재할 때
+   - 화면을 벗어나면 상태가 초기화되어도 괜찮을 때
+
+2. **Zustand 선택 시기**:
+   - 화면 간에 상태를 공유해야 할 때
+   - 앱 전체에서 일관된 상태가 필요할 때
+   - 화면을 벗어나도 상태가 유지되어야 할 때
+
+이러한 특성을 이해하고 적절히 활용하면, 더 예측 가능하고 관리하기 쉬운 상태 관리 시스템을 구축할 수 있다.
+
+## 결론
+
+React의 <HighlightText>useReducer</HighlightText>와 <HighlightText>Context API</HighlightText>를 활용한 화면별 상태 관리 패턴은 복잡한 화면을 구현할 때 매우 효과적이다. 이 패턴을 사용하면 상태 로직을 체계적으로 관리하고, 컴포넌트 간 상태 공유를 쉽게 할 수 있다.
+
+특히 다음과 같은 경우에 이 패턴을 고려해 보자:
+
+- 화면 내에서만 사용되는 복잡한 상태가 있을 때
+- 여러 컴포넌트가 동일한 상태에 접근해야 할 때
+- 상태 변화를 예측 가능하게 관리하고 싶을 때
+
+이 패턴을 적용하면 코드의 가독성과 유지보수성이 향상되고, 상태 관련 버그를 줄일 수 있다. 또한 전역 상태 관리 라이브러리를 도입하기 전에 React의 내장 기능만으로도 효과적인 상태 관리가 가능하다.
