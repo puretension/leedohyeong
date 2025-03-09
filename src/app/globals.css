@@ -37,7 +37,6 @@ a {
   text-decoration: none;
 }
 ::selection {
-  /* background: #6699cc; */
   background: #d3212c;
   color: white;
 }
