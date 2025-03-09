@@ -75,20 +75,21 @@ export default function Info() {
             {/* 영어 문단 모음 */}
             <div className='text-gray-700 mt-5 mb-4 leading-relaxed text-lg'>
               <p className='mb-2'>
-                After military service, I switched from <HighlightText>economics</HighlightText> to{" "}
-                <HighlightText>computer science</HighlightText>, maintaining a high GPA with a <b>growth mindset</b>.
+                After military period, I switched from <HighlightText>economics</HighlightText> to{" "}
+                <HighlightText>computer science</HighlightText>, maintaining a high GPA (4.21/4.5) with a{" "}
+                <b>growth mindset</b>.
               </p>
 
               <p className='mb-2'>
-                I see development as a way to drive <b>real business impact</b> across various fields. As a{" "}
-                <HighlightText>Pre-Series A startup core developer</HighlightText> and{" "}
-                <HighlightText>leader of the Google-sponsored GDGoC community</HighlightText>, I've built both technical
-                and communication skills.
+                I prioritize creating <b>real business impact</b> across various fields through development. As a{" "}
+                <HighlightText>full-stack developer at a Pre-Series A startup</HighlightText> and{" "}
+                <HighlightText>leader of the Google-sponsored GDGoC community</HighlightText>, I strive to build both
+                technical and communication skills.
               </p>
 
               <p>
                 Through building applications across domains, I developed a deep interest in <b>infrastructure</b> and
-                now focus on <span className='font-semibold italic'>scalable, reliable systems</span>.
+                now focus on <span className='font-semibold italic'>scalable, reliable infrastructure</span>.
               </p>
             </div>
 
@@ -96,20 +97,20 @@ export default function Info() {
             <div className='text-gray-600 mb-8 leading-relaxed text-base'>
               <p className='mb-2'>
                 저는 군 전역후 <HighlightText>경제학과</HighlightText>에서{" "}
-                <HighlightText>컴퓨터 공학전공</HighlightText>으로 전과하여, <b>꾸준히 성장하는 마음</b>으로 높은 학점을
-                유지했습니다.
+                <HighlightText>컴퓨터 공학전공</HighlightText>으로 전과하여, <b>꾸준히 성장하는 마음</b>으로 Top
+                GPA(4.21/4.5)를 유지하였습니다.
               </p>
 
               <p className='mb-2'>
-                개발을 통해 다양한 분야에서 <b>실질적인 비즈니스 임팩트</b>를 창출할 수 있다고 생각합니다.{" "}
-                <HighlightText>스타트업의 리드 개발자</HighlightText>이자{" "}
-                <HighlightText>구글에서 주관하는 GDGoC 커뮤니티의 리더</HighlightText>로서, 기술적 역량과 커뮤니케이션
-                스킬을 갖추었습니다.
+                개발을 통해 다양한 분야에서 <b>실질적인 Busniess Impact</b>를 창출하는 것을 최우선으로 생각합니다.{" "}
+                <HighlightText>Pre-Series A 스타트업의 풀스택 개발자</HighlightText>이자{" "}
+                <HighlightText>Google 주관 GDGoC 커뮤니티의 리더</HighlightText>로서, 기술적 역량과 커뮤니케이션 스킬을
+                모두 갖추고자 노력합니다.
               </p>
 
               <p>
                 다양한 도메인에서 애플리케이션을 구축하면서 <b>Infrastructure</b>에 깊은 관심을 갖게 되었고, 현재는{" "}
-                <span className='font-semibold italic'>확장 가능하고 안정적인 시스템</span>에 집중하고 있습니다.
+                <span className='font-semibold italic'>확장 가능하고 안정적인 Infrastructure</span>에 집중하고 있습니다.
               </p>
             </div>
           </div>
