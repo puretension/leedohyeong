@@ -1,0 +1,154 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import { cn, isMobile } from "@/function/utils";
+import { twMerge } from "tailwind-merge";
+
+import { H4 } from "@/components/Typography.component";
+
+const Header = () => {
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  // 화면 크기 감지하여 모바일 여부 업데이트
+  useEffect(() => {
+    setIsMobileView(isMobile());
+
+    const handleResize = () => {
+      setIsMobileView(isMobile());
+      if (!isMobile()) setMenuOpen(false); // 데스크톱 전환 시 메뉴 자동 닫기
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  const isActive = (path: string) => pathname === path;
+
+  return (
+    <header className='fixed top-0 left-0 right-0 z-50 border-b border-gray-100 bg-white'>
+      <div className='container mx-auto flex justify-between items-center py-4 md:px-8'>
+        {/* ✅ 로고 */}
+        <div className='flex items-center pl-4 md:pl-0'>
+          <Link href='/' className='flex items-center'>
+            <H4 as='span' className={twMerge("font-['KoPub_Batang'] text-xl md:text-1xl font-500")}>
+              Dohyeong
+              <br />
+              Lee <span>•</span>
+            </H4>
+          </Link>
+        </div>
+
+        {/* ✅ 데스크톱 네비게이션 */}
+        <nav className='hidden md:flex space-x-8'>
+          <Link
+            href='/'
+            className={`font-medium ${isActive("/") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+          >
+            INFO
+          </Link>
+          <Link
+            href='/projects'
+            className={`font-medium ${isActive("/projects") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+          >
+            PROJECTS
+          </Link>
+          <Link
+            href='/blog'
+            className={`font-medium ${isActive("/blog") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+          >
+            BLOG
+          </Link>
+        </nav>
+
+        {/* ✅ 모바일 햄버거 버튼 */}
+        <button
+          className='md:hidden px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300'
+          onClick={toggleMenu}
+          aria-label='Toggle Menu'
+        >
+          {menuOpen ? (
+            // X 버튼 (닫기)
+            <svg
+              className='w-6 h-6 text-gray-800'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth={2}
+              viewBox='0 0 24 24'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12'></path>
+            </svg>
+          ) : (
+            // ☰ 햄버거 버튼
+            <svg
+              className='w-6 h-6 text-gray-800'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth={2}
+              viewBox='0 0 24 24'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path strokeLinecap='round' strokeLinejoin='round' d='M4 6h16M4 12h16m-7 6h7'></path>
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* ✅ 모바일 네비게이션 메뉴 (위에서 아래로 슬라이드 애니메이션) */}
+      <div
+        className={cn(
+          "fixed top-0 left-0 right-0 bg-white transform transition-transform duration-500 ease-in-out",
+          menuOpen ? "translate-y-0" : "-translate-y-full",
+          "h-auto max-h-[250px] shadow-md",
+        )}
+      >
+        <div className='flex justify-end p-4'>
+          <button className='focus:outline-none' onClick={toggleMenu} aria-label='Close Menu'>
+            <svg
+              className='w-6 h-6 text-gray-800'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth={2}
+              viewBox='0 0 24 24'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12'></path>
+            </svg>
+          </button>
+        </div>
+        <nav className='flex flex-col items-center space-y-5 pb-6'>
+          <Link
+            href='/'
+            className={`font-medium text-xl ${isActive("/") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+            onClick={toggleMenu}
+          >
+            INFO
+          </Link>
+          <Link
+            href='/projects'
+            className={`font-medium text-xl ${isActive("/projects") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+            onClick={toggleMenu}
+          >
+            PROJECTS
+          </Link>
+          <Link
+            href='/blog'
+            className={`font-medium text-xl ${isActive("/blog") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+            onClick={toggleMenu}
+          >
+            BLOG
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
