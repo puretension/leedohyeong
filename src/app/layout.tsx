@@ -8,7 +8,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "../components/Footer.component";
 import { prefix } from "../constants/prefix";
 import "./globals.css";
-import { Providers } from "./providers";
 import { DefaultMetadata, DefaultOpenGraph } from "./shared-metadata";
 
 export const metadata: Metadata = {
