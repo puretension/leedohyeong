@@ -11,17 +11,8 @@ export const metadata: Metadata = {
   keywords: ["React Native", "useContext", "useReducer", "지역 상태 관리"],
   openGraph: {
     ...DefaultOpenGraph,
-    url: "https://leedohyeong.com/blog/1-react-native-optimize-local-state-management/images/thumbnail.png",
     title: "Context API + useReducer로 안심하고 로컬 상태 관리하기",
     description: "Context API + useReducer로 안심하고 로컬 상태 관리하기",
-    images: [
-      {
-        url: "/blog/1-react-native-optimize-local-state-management/images/thumbnail.png",
-        width: 1200,
-        height: 630,
-        alt: "리액트 네이티브 로컬 상태 관리 최적화",
-      },
-    ],
   },
 };
 
