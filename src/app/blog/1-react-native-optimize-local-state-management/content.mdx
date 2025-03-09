@@ -3,13 +3,24 @@ import { HighlightText } from "@/components/Highlight.component";
 
 import Thumbnail from "@/app/blog/1-react-native-optimize-local-state-management/images/thumbnail.png";
 
-export const meta = {
-  date: "2024-09-20",
-  title: "Context API + useReducer로 안심하고 로컬 상태 관리하기",
-  description: "Flux 패턴을 활용한 효율적인 화면 단위 상태 관리 방법",
-  image: Thumbnail.src,
-  tags: ["ReactNative", "useContext", "useReducer", "Flux", "Hook", "State Management"],
-  category: "React & ReactNative",
+export const metadata: Metadata = {
+  title: "리액트 네이티브 로컬 상태 관리 최적화",
+  description: "리액트 네이티브 로컬 상태 관리 최적화 방법",
+  keywords: ["React Native", "useContext", "useReducer", "지역 상태 관리"],
+  openGraph: {
+    ...DefaultOpenGraph,
+    url: "https://leedohyeong.com/blog/react-native",
+    title: "리액트 네이티브 로컬 상태 관리 최적화",
+    description: "리액트 네이티브 로컬 상태 관리 최적화 방법",
+    images: [
+      {
+        url: "/blog/1-react-native-optimize-local-state-management/images/thumbnail.png",
+        width: 1200,
+        height: 630,
+        alt: "리액트 네이티브 로컬 상태 관리 최적화",
+      },
+    ],
+  },
 };
 
 export default (props) => <BlogLayout meta={meta} {...props} />;
