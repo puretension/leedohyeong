@@ -77,7 +77,7 @@ export async function GET(req: NextRequest) {
                   src={
                     process.env.NODE_ENV === "development"
                       ? "http://localhost:3000/images/profile_large.jpg"
-                      : `https://changhyeon.net/images/profile_large.jpg`
+                      : `https://leedohyeong.com/images/profile_large.jpg`
                   }
                   style={{
                     width: "150px",
@@ -103,7 +103,7 @@ export async function GET(req: NextRequest) {
                       marginBottom: 20,
                     }}
                   >
-                    <div style={{ fontSize: "32px", opacity: 0.8 }}>윤창현 - Changhyeon (Kevin) Yoon</div>
+                    <div style={{ fontSize: "32px", opacity: 0.8 }}>이도형 - Dohyeong Lee</div>
                     <div style={{ fontSize: "20px", opacity: 0.8 }}>{url.href}</div>
                   </div>
                   {lastModified && <div style={{ fontSize: "20px", opacity: 0.8 }}>{lastModified}</div>}
