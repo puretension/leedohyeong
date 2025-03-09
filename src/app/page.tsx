@@ -123,17 +123,17 @@ export default function Info() {
             {/* company-r2c-company */}
             <TechCard
               imageSrc='/images/r2c-company-logo.png'
-              texts={["Series-A Startup", "Managed 100,000+ MAU", "Selected by TIPS Program"]}
+              texts={["Pre-Series A Startup", "Managed 100,000+ MAU", "Selected by TIPS Program"]}
             />
             <TechCard
               imageSrc='/images/company-growth-helper.png'
-              texts={["Founded Startup", "Secured $30,000 Revenue", "Full-Stack Developer"]}
+              texts={["Founded Startup", "Secured $30,000 Revenue", "Full-Stack Development"]}
               imageSize={200}
             />
 
             <TechCard
               imageSrc='/images/poppin-logo.png'
-              texts={["Released App on Appstore", "Managed 5000+ users", "FrontEnd Lead Developer"]}
+              texts={["Released on Appstore", "Managed 5000+ users", "FrontEnd Lead Developer"]}
             />
             <TechCard
               imageSrc='/images/skill-react.png'
