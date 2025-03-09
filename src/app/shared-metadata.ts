@@ -5,7 +5,7 @@ export const defaultImages = [
     url: `${prefix}/images/profile.jpg`,
     width: 1200,
     height: 630,
-    alt: "LeeDohyeong",
+    alt: "Dohyeong Lee",
   },
 ];
 
@@ -13,12 +13,12 @@ export const DefaultOpenGraph = {
   type: "website",
   locale: "ko_KR",
   url: "https://leedohyeong.com",
-  title: "이도형 | 도형 (Dohyeong) Lee",
-  description: "이도형 | LeeDohyeong",
+  title: "Dohyeong Lee",
+  description: "Dohyeong Lee ",
   images: defaultImages,
 };
 
 export const DefaultMetadata = {
-  title: "이도형 | 도형 (Dohyeong) Lee",
-  description: "이도형 | LeeDohyeong",
+  title: "Dohyeong Lee",
+  description: "Dohyeong Lee",
 };
