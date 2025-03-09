@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 
-import { isMobile } from "@/function/utils";
-
-import { Badge } from "@/components/Badge.component";
 import { HighlightText } from "@/components/Highlight.component";
 import { PDFModal } from "@/components/PDFModal.component";
 import { TechCard } from "@/components/TechCard.component";
