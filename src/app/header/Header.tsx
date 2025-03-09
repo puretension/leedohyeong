@@ -14,13 +14,12 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
 
-  // 화면 크기 감지하여 모바일 여부 업데이트
+  // 모바일 여부 업데이트
   useEffect(() => {
     setIsMobileView(isMobile());
-
     const handleResize = () => {
       setIsMobileView(isMobile());
-      if (!isMobile()) setMenuOpen(false); // 데스크톱 전환 시 메뉴 자동 닫기
+      if (!isMobile()) setMenuOpen(false);
     };
 
     window.addEventListener("resize", handleResize);
@@ -29,7 +28,13 @@ const Header = () => {
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
-  const isActive = (path: string) => pathname === path;
+  // `startsWith` 사용하여 하위 경로도 포함하도록 수정
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/"; // INFO는 루트에서만 활성화
+    }
+    return pathname.startsWith(path);
+  };
 
   return (
     <header className='fixed top-0 left-0 right-0 z-50 border-b border-gray-100 bg-white'>
@@ -81,7 +86,6 @@ const Header = () => {
               stroke='currentColor'
               strokeWidth={2}
               viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
             >
               <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12'></path>
             </svg>
@@ -93,7 +97,6 @@ const Header = () => {
               stroke='currentColor'
               strokeWidth={2}
               viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
             >
               <path strokeLinecap='round' strokeLinejoin='round' d='M4 6h16M4 12h16m-7 6h7'></path>
             </svg>
@@ -101,7 +104,7 @@ const Header = () => {
         </button>
       </div>
 
-      {/* ✅ 모바일 네비게이션 메뉴 (위에서 아래로 슬라이드 애니메이션) */}
+      {/* ✅ 모바일 네비게이션 */}
       <div
         className={cn(
           "fixed top-0 left-0 right-0 bg-white transform transition-transform duration-500 ease-in-out",
@@ -117,7 +120,6 @@ const Header = () => {
               stroke='currentColor'
               strokeWidth={2}
               viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
             >
               <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12'></path>
             </svg>
