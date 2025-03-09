@@ -77,19 +77,19 @@ export default function Info() {
               <p className='mb-2'>
                 After military period, I switched from <HighlightText>economics</HighlightText> to{" "}
                 <HighlightText>computer science</HighlightText>, maintaining{" "}
-                <HighlightText>a high GPA (4.21/4.5)</HighlightText> with a <b>growth mindset</b>.
+                <HighlightText>a high GPA (4.21/4.5)</HighlightText> with a <b>growth mindset</b>
               </p>
 
               <p className='mb-2'>
-                I prioritize creating <b>real business impact</b> across various fields through development. <br />
+                I prioritize creating <b>real business impact</b> across various fields through development <br />
                 As a <HighlightText>full-stack developer at a Pre-Series A startup</HighlightText> and{" "}
                 <HighlightText>leader of the Google-sponsored GDGoC community</HighlightText>, <br />I strive to build
-                both technical and communication skills.
+                both technical and communication skills
               </p>
 
               <p>
                 Through building applications across domains, I developed a deep interest in <b>infrastructure</b> and
-                now focus on <span className='font-semibold italic'>scalable, reliable infrastructure</span>.
+                now focus on <span className='font-semibold italic'>scalable, reliable infrastructure</span>
               </p>
             </div>
 
