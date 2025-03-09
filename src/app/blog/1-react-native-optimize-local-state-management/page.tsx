@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description: "리액트 네이티브 로컬 상태 관리 최적화 방법",
     images: [
       {
-        url: "https://leedohyeong.com/api/og?path=/blog/react-native",
+        url: "/blog/1-react-native-optimize-local-state-management/images/thumbnail.png",
         width: 1200,
         height: 630,
         alt: "리액트 네이티브 로컬 상태 관리 최적화",
