@@ -67,7 +67,7 @@ export const Blogs = ({ blogs }: { blogs: Blog[] }) => {
                 className='rounded-md object-contain h-40 w-60'
               />
               <div className='flex flex-col col-span-3'>
-                <H1 className='text-lg md:text-lg lg:text-lg'>{blog.title}</H1>
+                <H1 className='font-medium text-lg md:text-lg lg:text-lg'>{blog.title}</H1>
                 <Paragraph className='text-sm md:text-sm lg:text-sm mt-2'>{blog.description}</Paragraph>
                 <div className='flex space-x-2 flex-wrap mt-4'>
                   {blog.tags?.map((tag, index) => (
