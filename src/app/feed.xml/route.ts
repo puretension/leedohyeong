@@ -7,7 +7,7 @@ export async function GET() {
   const feed = new RSS({
     title: DefaultMetadata.title,
     description: DefaultMetadata.description,
-    image_url: `${DefaultOpenGraph.url}/images/OG.png`,
+    image_url: `${DefaultOpenGraph.url}/images/profile_large.jpg`,
     feed_url: `${DefaultOpenGraph.url}/feed.xml`,
     site_url: DefaultOpenGraph.url,
     copyright: `Copyright ${new Date().getFullYear().toString()}`,
