@@ -4,7 +4,7 @@ import { products } from "../constants/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projects = products.map((project) => ({
-    url: `https://leedohyeong.com/projects/${project.slug}`,
+    url: `https://leedohyeong.com/portfolio/${project.slug}`,
     lastModified: new Date(project.modified_at),
     changeFrequency: "weekly",
     priority: 0.8,
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: "https://leedohyeong.com/projects",
+      url: "https://leedohyeong.com/portfolio",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,

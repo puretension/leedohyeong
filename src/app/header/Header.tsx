@@ -59,10 +59,10 @@ const Header = () => {
             INFO
           </Link>
           <Link
-            href='/projects'
-            className={`font-medium ${isActive("/projects") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+            href='/portfolio'
+            className={`font-medium ${isActive("/portfolio") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
           >
-            PROJECTS
+            PORTFOLIO
           </Link>
           <Link
             href='/blog'
@@ -134,11 +134,11 @@ const Header = () => {
             INFO
           </Link>
           <Link
-            href='/projects'
-            className={`font-medium text-xl ${isActive("/projects") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
+            href='/portfolio'
+            className={`font-medium text-xl ${isActive("/portfolio") ? "text-[#EC0101]" : "text-gray-800 hover:text-gray-600"}`}
             onClick={toggleMenu}
           >
-            PROJECTS
+            PORTFOLIO
           </Link>
           <Link
             href='/blog'

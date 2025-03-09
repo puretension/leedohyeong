@@ -46,7 +46,7 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
   const product = products.find((p) => p.slug === slug);
 
   if (!product) {
-    redirect("/projects");
+    redirect("/portfolio");
   }
   return (
     <Container>

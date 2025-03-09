@@ -43,7 +43,7 @@ export const Products = () => {
               transition={{ duration: 0.2, delay: idx * 0.1 }}
             >
               <Link
-                href={product.slug ? `/projects/${product.slug}` : product.href}
+                href={product.slug ? `/portfolio/${product.slug}` : product.href}
                 key={product.href}
                 className='group flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 hover:bg-gray-50 rounded-2xl transition duration-200 pt-4'
               >
@@ -59,7 +59,8 @@ export const Products = () => {
                 />
                 <div className='flex flex-col justify-between'>
                   <div>
-                    <H4 className='font-black text-lg md:text-lg lg:text-lg '>{product.title}</H4>
+                    {/* <H4 className='font-black text-lg md:text-lg lg:text-lg '>{product.title}</H4> */}
+                    <H4 className='font-medium text-lg md:text-lg lg:text-lg text-black-900'>{product.title}</H4>
                     <Paragraph className='text-sm md:text-sm lg:text-sm mt-2 max-w-xl'>{product.description}</Paragraph>
                   </div>
                   <div className='flex gap-2 md:mb-1 mt-2 md:mt-0 flex-wrap'>

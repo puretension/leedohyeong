@@ -46,7 +46,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
       <header className='flex flex-col'>
         <Link
           type='button'
-          href='/projects'
+          href='/portfolio'
           aria-label='Go back to articles'
           className='group mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition'
         >

@@ -2,26 +2,26 @@
 import { Product } from "@/types/products";
 
 /** intermission */
-import Intermission1 from "@public/images/projects/intermission/intermission_1.png";
-import Intermission2 from "@public/images/projects/intermission/intermission_2.png";
-import IntermissionThumbnail from "@public/images/projects/intermission/intermission_thumbnail.png";
+import Intermission1 from "@public/images/portfolio/intermission/intermission_1.png";
+import Intermission2 from "@public/images/portfolio/intermission/intermission_2.png";
+import IntermissionThumbnail from "@public/images/portfolio/intermission/intermission_thumbnail.png";
 
 /** pickply */
-import Pickply1 from "@public/images/projects/pickply/pickply_1.png";
-import Pickply2 from "@public/images/projects/pickply/pickply_2.png";
-import Pickply3 from "@public/images/projects/pickply/pickply_3.png";
-import Pickply4 from "@public/images/projects/pickply/pickply_4.png";
-import Pickply5 from "@public/images/projects/pickply/pickply_5.png";
-import PickplyThumbnail from "@public/images/projects/pickply/pickply_thumbnail.png";
+import Pickply1 from "@public/images/portfolio/pickply/pickply_1.png";
+import Pickply2 from "@public/images/portfolio/pickply/pickply_2.png";
+import Pickply3 from "@public/images/portfolio/pickply/pickply_3.png";
+import Pickply4 from "@public/images/portfolio/pickply/pickply_4.png";
+import Pickply5 from "@public/images/portfolio/pickply/pickply_5.png";
+import PickplyThumbnail from "@public/images/portfolio/pickply/pickply_thumbnail.png";
 
 /** poppin */
-import Poppin1 from "@public/images/projects/poppin/poppin_1.png";
-import Poppin2 from "@public/images/projects/poppin/poppin_2.png";
-import Poppin3 from "@public/images/projects/poppin/poppin_3.png";
-import Poppin4 from "@public/images/projects/poppin/poppin_4.png";
-import Poppin5 from "@public/images/projects/poppin/poppin_5.png";
-import Poppin6 from "@public/images/projects/poppin/poppin_6.png";
-import PoppinThumbnail from "@public/images/projects/poppin/poppin_thumbnail.png";
+import Poppin1 from "@public/images/portfolio/poppin/poppin_1.png";
+import Poppin2 from "@public/images/portfolio/poppin/poppin_2.png";
+import Poppin3 from "@public/images/portfolio/poppin/poppin_3.png";
+import Poppin4 from "@public/images/portfolio/poppin/poppin_4.png";
+import Poppin5 from "@public/images/portfolio/poppin/poppin_5.png";
+import Poppin6 from "@public/images/portfolio/poppin/poppin_6.png";
+import PoppinThumbnail from "@public/images/portfolio/poppin/poppin_thumbnail.png";
 
 import { HighlightText } from "@/components/Highlight.component";
 
